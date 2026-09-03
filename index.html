@@ -46,9 +46,6 @@
   .rv{display:inline-block; overflow:hidden; vertical-align:top;}
   .rv > i{display:inline-block; font-style:inherit;}
 
-  /* generic reveal item */
-  .ri{transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);}
-
   /* ghost numerals */
   .ghost{position:absolute; z-index:0; font-family:"Bodoni Moda",serif; font-weight:500; font-style:italic;
     line-height:.8; color:var(--ink); opacity:.045; pointer-events:none; user-select:none;
@@ -529,48 +526,57 @@ setTimeout(function(){
     }catch(e){}
   }
 
-  /* ---- reveal-on-scroll ---- */
+  /* ---- reveal-on-scroll: fully scrubbed & reversible (mesma lógica das 2 primeiras seções) ---- */
   var wipes=$$('[data-wipe]');
-  if(!reduce){
-    var revItems=$$('.ri');
-    var show=function(it){ it.style.opacity='1'; it.style.transform='none'; };
-    revItems.forEach(function(it){
-      if(it.getBoundingClientRect().top > innerHeight*0.82){
-        it.style.opacity='0'; it.style.transform='translateY(18px)'; it.dataset.hid='1';
-      }
-    });
-    var splitEls=$$('[data-split]').filter(function(el){ return !el.closest('.hero'); });
-    splitEls.forEach(function(el){ if(el.getBoundingClientRect().top > innerHeight*0.86) el.dataset.hid='1'; });
-    wipes.forEach(function(w){ if(w.getBoundingClientRect().top > innerHeight*0.9) w.dataset.hid='1'; else w.classList.remove('clipwipe'); });
-    var doSplit=function(el){ if(el.dataset.done) return; el.dataset.done='1'; riseWords(el, 0, el.dataset.slow?70:40, 780); };
-    var doWipe=function(w){ if(w.dataset.done) return; w.dataset.done='1'; w.style.transition='clip-path 1s '+EO; w.style.clipPath='inset(0 0 0 0)'; };
-    var doShow=function(it){ if(it.dataset.done) return; it.dataset.done='1'; show(it); };
-    try{
-      var io=new IntersectionObserver(function(ents){
-        ents.forEach(function(e){
-          if(!e.isIntersecting) return;
-          var t=e.target;
-          if(t.classList.contains('rv')||t.hasAttribute('data-split')) doSplit(t);
-          else if(t.hasAttribute('data-wipe')) doWipe(t);
-          else doShow(t);
-          io.unobserve(t);
-        });
-      }, {threshold:0, rootMargin:'0px 0px -15% 0px'});
-      revItems.forEach(function(it){ if(it.dataset.hid) io.observe(it); else doShow(it); });
-      splitEls.forEach(function(el){ if(el.dataset.hid) io.observe(el); else doSplit(el); });
-      wipes.forEach(function(w){ if(w.dataset.hid) io.observe(w); else doWipe(w); });
-    }catch(e){
-      revItems.forEach(doShow); splitEls.forEach(doSplit); wipes.forEach(function(w){ w.classList.remove('clipwipe'); });
-    }
-    /* failsafe on every scroll frame: nothing in view stays hidden (covers fast scrolls the observer misses) */
-    window._revChk=function(){
-      var lim=innerHeight*0.88;
-      revItems.forEach(function(it){ if(!it.dataset.done && it.getBoundingClientRect().top<lim) doShow(it); });
-      splitEls.forEach(function(el){ if(!el.dataset.done && el.getBoundingClientRect().top<lim) doSplit(el); });
-      wipes.forEach(function(w){ if(!w.dataset.done && w.getBoundingClientRect().top<lim) doWipe(w); });
-    };
+  var revBlocks=$$('[data-reveal]');
+  wipes.forEach(function(w){ w.classList.remove('clipwipe'); });
+
+  if(reduce){
+    // sem movimento: tudo visível
+    $$('.ri').forEach(function(el){ el.style.opacity='1'; el.style.transform='none'; });
+    $$('.rv > i').forEach(function(i){ i.style.transform='translateY(0)'; });
+    wipes.forEach(function(w){ w.style.clipPath='none'; });
   } else {
-    wipes.forEach(function(w){ w.classList.remove('clipwipe'); });
+    // cataloga os itens animados de cada bloco
+    revBlocks.forEach(function(s){
+      s._ri = $$('.ri', s);
+      s._wp = $$('[data-wipe]', s);
+      s._sp = $$('[data-split]', s).filter(function(el){ return !el.closest('.hero'); });
+      s._sp.forEach(function(el){ el._w = $$('.rv > i', el); });
+      s._st = null;
+    });
+
+    /* progresso 0→1 conforme o topo do elemento sobe de 92% para 55% da viewport */
+    function prog(el){
+      var t = el.getBoundingClientRect().top / innerHeight;
+      return clamp((0.92 - t) / (0.92 - 0.55), 0, 1);
+    }
+    function setRi(el,p){ el.style.opacity=String(p); el.style.transform='translateY('+lerp(22,0,easeOut(p)).toFixed(1)+'px)'; }
+    function setWp(el,p){ el.style.clipPath='inset(0 0 '+((1-easeOut(p))*100).toFixed(2)+'% 0)'; }
+    function setSp(el,p){
+      var w=el._w, N=w.length, span=el.dataset.slow?7:4;
+      for(var i=0;i<N;i++){
+        var wp=clamp((p*(N+span)-i)/span,0,1);
+        w[i].style.transform='translateY('+(120*(1-easeOut(wp))).toFixed(1)+'%)';
+      }
+    }
+    function termBlock(s,v){            // estado terminal barato (0 = escondido, 1 = revelado)
+      if(s._st===v) return; s._st=v;
+      s._ri.forEach(function(el){ setRi(el,v); });
+      s._wp.forEach(function(el){ setWp(el,v); });
+      s._sp.forEach(function(el){ setSp(el,v); });
+    }
+    window._reveals=function(){
+      revBlocks.forEach(function(s){
+        var r=s.getBoundingClientRect();
+        if(r.top > innerHeight+120){ termBlock(s,0); return; }   // abaixo da tela → escondido
+        if(r.bottom < -120){ termBlock(s,1); return; }           // já passou pra cima → revelado
+        s._st='live';
+        s._ri.forEach(function(el){ setRi(el,prog(el)); });
+        s._wp.forEach(function(el){ setWp(el,prog(el)); });
+        s._sp.forEach(function(el){ setSp(el,prog(el)); });
+      });
+    };
   }
 
   /* ---- smoothed scroll + parallax ---- */
@@ -632,7 +638,7 @@ setTimeout(function(){
     var mid=innerHeight*0.42, active=-1;
     secEls.forEach(function(el,i){ if(el){ var r=el.getBoundingClientRect(); if(r.top<=mid && r.bottom>=mid) active=i; } });
     railLinks.forEach(function(a,i){ a.classList.toggle('on', i===active); });
-    if(window._revChk) window._revChk();
+    if(window._reveals) window._reveals();
   }
 
   function loop(){
@@ -645,6 +651,9 @@ setTimeout(function(){
   addEventListener('scroll', onScroll, {passive:true});
   addEventListener('resize', function(){ target=scrollY; apply(); });
   apply();
+  requestAnimationFrame(apply);            // 2ª passada após o layout assentar
+  addEventListener('load', apply);         // e depois das fontes/imagens carregarem
+  setTimeout(apply, 400);
 
   window.__anim = 1;
 
