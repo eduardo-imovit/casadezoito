@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CasaDezoito — Lares, Design e Negócios</title>
+<meta name="description" content="A CasaDezoito reúne, sob um mesmo teto, empresas que compartilham um jeito de trabalhar — com curadoria, tempo e escuta. Av. Rotary, 134 — Vila Brandina, Campinas/SP.">
+<link rel="canonical" href="https://www.casadezoito.com.br/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CasaDezoito — Lares, Design e Negócios">
+<meta property="og:description" content="Um espaço onde tudo faz sentido. O conceito, os espaços e as empresas da CasaDezoito, em Campinas.">
+<meta property="og:image" content="https://www.casadezoito.com.br/assets/og.jpg">
+<meta property="og:url" content="https://www.casadezoito.com.br/">
+<meta property="og:site_name" content="CasaDezoito">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F0E8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500&display=swap">
+<style>
+
+  :root{
+    --cream:#F5F0E8; --cream-2:#EDE6D9; --paper:#FBF8F3; --ink:#2C2723; --soft:#6B6258;
+    --tan:#B18F5E; --tan-deep:#9A7B4F; --line:#E0D7C7; --graphite:#33302B;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{background:#F5F0E8;}
+  body{background:#F5F0E8; color:#2C2723;
+    font-family:"Jost","Helvetica Neue",Arial,sans-serif; font-weight:400;
+    font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  img{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  .serif{font-family:"Bodoni Moda","Times New Roman",Georgia,serif;}
+  .i{font-style:italic;}
+  .eyebrow{font-size:12px; letter-spacing:.26em; text-transform:uppercase; color:var(--tan-deep); font-weight:500;}
+  .wrap{width:min(90vw,1240px); margin:0 auto; position:relative; z-index:2;}
+
+  /* grain overlay */
+  .grain{position:fixed; inset:0; z-index:70; pointer-events:none; opacity:.06; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:140px 140px;}
+
+  /* word reveal — visible by default; JS animates from hidden */
+  .rv{display:inline-block; overflow:hidden; vertical-align:top;}
+  .rv > i{display:inline-block; font-style:inherit;}
+
+  /* generic reveal item */
+  .ri{transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);}
+
+  /* ghost numerals */
+  .ghost{position:absolute; z-index:0; font-family:"Bodoni Moda",serif; font-weight:500; font-style:italic;
+    line-height:.8; color:var(--ink); opacity:.045; pointer-events:none; user-select:none;
+    font-size:min(40vw,460px); will-change:transform;}
+  .ghost.r{right:-3vw; left:auto;}
+  .ghost.l{left:-3vw;}
+
+  /* ---------- NAV ---------- */
+  .nav{position:fixed; inset:0 0 auto 0; z-index:60; display:flex; align-items:center;
+    justify-content:space-between; padding:20px clamp(20px,5vw,64px);
+    transition:background .5s ease, border-color .5s ease, padding .5s ease;
+    border-bottom:1px solid transparent;}
+  .nav.solid{background:rgba(245,240,232,.82); backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px); border-bottom-color:var(--line); padding-top:13px; padding-bottom:13px;}
+  .nav .brand{font-size:19px; color:var(--ink);}
+  .nav .brand em{font-family:"Jost",sans-serif; font-weight:300; font-style:normal; letter-spacing:.05em;}
+  .nav .links{display:flex; gap:32px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--soft);}
+  .nav .links a{position:relative; padding:4px 0; transition:color .3s;}
+  .nav .links a::after{content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+    background:var(--tan-deep); transition:right .4s cubic-bezier(.2,.7,.2,1);}
+  .nav .links a:hover{color:var(--ink);} .nav .links a:hover::after{right:0;}
+  .menu-btn{display:none; width:34px; height:34px; border:0; background:none; cursor:pointer;
+    flex-direction:column; justify-content:center; gap:6px; padding:0; z-index:62;}
+  .menu-btn span{display:block; width:24px; height:1.5px; background:var(--ink); margin-left:auto;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1), opacity .25s, width .35s;}
+  .menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg); width:26px;}
+  .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg); width:26px;}
+  .mobile-menu{position:fixed; inset:0; z-index:58; background:var(--cream);
+    display:flex; flex-direction:column; justify-content:center; gap:8px; padding:0 9vw;
+    transform:translateY(-100%); transition:transform .5s cubic-bezier(.5,0,.1,1);}
+  .mobile-menu.open{transform:none;}
+  .mobile-menu a{font-family:"Bodoni Moda",serif; font-size:clamp(30px,9vw,44px); color:var(--ink);
+    padding:10px 0; border-bottom:1px solid var(--line);}
+  .mobile-menu a:last-child{border-bottom:0;}
+  .mobile-menu .mm-foot{margin-top:32px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--tan-deep); border:0;}
+  @media(max-width:760px){ .nav .links{display:none;} .menu-btn{display:flex;} }
+  @media(min-width:761px){ .mobile-menu{display:none;} }
+
+  /* ---------- RAIL ---------- */
+  .rail{position:fixed; left:26px; top:50%; transform:translateY(-50%); z-index:55;
+    display:flex; flex-direction:column; gap:0; align-items:flex-start;}
+  .rail .track{position:absolute; left:2px; top:6px; bottom:6px; width:1px; background:var(--line);}
+  .rail .track i{position:absolute; left:0; top:0; width:1px; height:0; background:var(--tan-deep); transition:height .2s linear;}
+  .rail a{position:relative; padding:9px 0 9px 16px; font-size:11px; letter-spacing:.13em;
+    color:var(--soft); opacity:.4; transition:opacity .4s,color .4s;}
+  .rail a.on{opacity:1; color:var(--ink);}
+  @media(max-width:1280px){ .rail{display:none;} }
+
+  /* ---------- HERO ---------- */
+  #heroTrack{position:relative; height:190vh;}
+  .hero{position:sticky; top:0; height:100vh; overflow:hidden; background:#F5F0E8; display:flex; align-items:center;}
+  .hero .wrap{display:flex; align-items:flex-end; gap:clamp(24px,5vw,64px); will-change:transform,opacity;}
+  .hero .col{flex:1 1 0; display:flex; flex-direction:column; gap:24px; padding-bottom:8vh;}
+  .hero h1{font-weight:400; font-size:clamp(38px,6.2vw,72px); line-height:1.05; letter-spacing:-.01em;}
+  .hero .lead{max-width:440px; font-size:clamp(15px,1.15vw,17px); color:#4A443C; line-height:1.72;}
+  .hero .tagline{display:flex; align-items:center; gap:16px; margin-top:4px;}
+  .hero .tagline i{display:block; width:44px; height:1px; background:var(--tan); transform-origin:left;}
+  .hero .tagline span{font-size:12px; letter-spacing:.15em; text-transform:uppercase; color:var(--tan-deep);}
+  .frame{position:relative; flex:0 0 46%; align-self:stretch; display:flex; align-items:center;}
+  .frame .box{position:relative; width:100%; aspect-ratio:4/3;}
+  .frame .mask{position:absolute; inset:0; overflow:hidden;}
+  .frame .mask img{position:absolute; left:0; top:-7%; width:100%; height:114%; object-fit:cover; will-change:transform;}
+  .frame svg{position:absolute; inset:-11%; width:122%; height:122%; overflow:visible; pointer-events:none;}
+  .frame svg path{vector-effect:non-scaling-stroke;}
+  @media(max-width:760px){
+    #heroTrack{height:auto;} .hero{position:static; height:auto; padding:118px 0 64px;}
+    .hero .wrap{flex-direction:column; align-items:stretch;} .frame{flex-basis:auto; margin-top:26px;}
+    .hero .col{padding-bottom:0;} .frame .mask img{position:relative; top:0; height:auto;}
+  }
+
+  /* ---------- CONCEITO ---------- */
+  #conceito{position:relative; height:280vh; background:#F5F0E8;}
+  .concept{position:sticky; top:0; height:100vh; overflow:hidden; background:#F5F0E8; display:flex; align-items:center;}
+  .concept .wrap{display:flex; align-items:center; gap:clamp(24px,6vw,86px);}
+  .eighteen{position:relative; flex:0 0 clamp(230px,32vw,420px); aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;}
+  .eighteen .digits{position:relative; font-weight:500; font-size:clamp(150px,24vw,300px); line-height:1;
+    color:var(--graphite); display:flex;}
+  .eighteen .d{display:inline-block; will-change:transform,opacity;}
+  .eighteen .echo{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    color:transparent; -webkit-text-stroke:1px rgba(51,48,43,.18); font-weight:500;
+    font-size:clamp(150px,24vw,300px); line-height:1; pointer-events:none; will-change:transform,opacity;}
+  .eighteen svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible; will-change:transform;}
+  .eighteen svg *{vector-effect:non-scaling-stroke;}
+  .concept .txt{flex:1 1 0; display:flex; flex-direction:column; gap:22px;}
+  .concept .txt h3{font-weight:400; font-size:clamp(21px,2.3vw,29px); line-height:1.32;}
+  .concept .txt p{font-size:15px; color:var(--soft); line-height:1.72; max-width:480px;}
+  .concept .txt .duo{display:flex; gap:40px;}
+  .concept .txt .duo > div{flex:1 1 0;}
+  .concept .txt .duo h4{font-family:"Bodoni Moda",serif; font-weight:400; font-size:20px; margin-bottom:6px;}
+  @media(max-width:860px){
+    #conceito{height:auto;} .concept{position:static; height:auto; padding:90px 0;}
+    .concept .wrap{flex-direction:column; gap:34px;} .eighteen{flex-basis:auto; width:min(62vw,280px);}
+    .concept .txt .duo{flex-direction:column; gap:22px;}
+  }
+
+  /* ---------- QUOTE band ---------- */
+  .band{position:relative; overflow:hidden; background:var(--graphite); color:#EFE9DD; padding:clamp(90px,17vh,160px) 0;}
+  .band::after{content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(120% 90% at 20% 0%, rgba(201,174,129,.10), transparent 60%);}
+  .band .wrap{max-width:1000px;}
+  .band p{font-weight:400; font-size:clamp(22px,3vw,38px); line-height:1.44;}
+  .band .who{margin-top:24px; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#C9AE81;}
+
+  /* ---------- text sections ---------- */
+  .sec{position:relative; overflow:hidden; padding:clamp(84px,14vh,150px) 0;}
+  .sec.alt{background:var(--cream-2);}
+  .sec .head{display:flex; gap:64px; margin-bottom:44px;}
+  .sec .head .lbl{flex:0 0 clamp(120px,20vw,300px);}
+  .sec .head .h{flex:1 1 0;}
+  .sec h2{font-family:"Bodoni Moda",serif; font-weight:400; font-size:clamp(28px,3.6vw,44px); line-height:1.16;}
+  .sec .body{display:flex; gap:64px;}
+  .sec .body .lbl{flex:0 0 clamp(120px,20vw,300px);}
+  .sec .body .c{flex:1 1 0; display:flex; flex-direction:column; gap:20px; max-width:680px;}
+  .sec .body p{font-size:clamp(15px,1.15vw,17px); color:#4A443C; line-height:1.75;}
+  .sec .body p.big{font-family:"Bodoni Moda",serif; font-size:clamp(20px,2.2vw,26px); color:var(--graphite); line-height:1.44;}
+  @media(max-width:820px){
+    .sec .head{flex-direction:column; gap:16px; margin-bottom:28px;}
+    .sec .body{flex-direction:column; gap:14px;}
+  }
+
+  /* ---------- ESPAÇOS ---------- */
+  .fl-tag{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--tan-deep); margin-bottom:14px;}
+  .fl-h{font-family:"Bodoni Moda",serif; font-weight:400; font-size:clamp(22px,2.5vw,30px); margin-bottom:22px;}
+  .feature{display:flex; gap:40px; align-items:stretch; margin-bottom:20px;}
+  .feature .fimg{flex:0 0 54%; aspect-ratio:16/10; overflow:hidden; position:relative;}
+  .feature .fimg img{position:absolute; left:0; top:-8%; width:100%; height:116%; object-fit:cover; will-change:transform;}
+  .feature .ftext{flex:1 1 0; display:flex; flex-direction:column; justify-content:center; gap:14px;}
+  .rooms{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 28px; font-size:15px; color:var(--soft);}
+  .rooms b{font-weight:400; color:var(--ink);} .rooms span{color:#8A8175;}
+  .grid3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:26px 0 60px;}
+  .grid3 .g{position:relative; aspect-ratio:1/1; overflow:hidden;}
+  .grid3 .g img{position:absolute; left:0; top:-8%; width:100%; height:116%; object-fit:cover; will-change:transform;}
+  .grid3 .g figcaption{position:absolute; left:12px; bottom:10px; color:#fff; font-size:12px;
+    letter-spacing:.06em; text-shadow:0 1px 6px rgba(0,0,0,.5); z-index:2;}
+  .clipwipe{clip-path:inset(0 0 100% 0);}
+  @media(max-width:820px){
+    .feature, .feature[style]{flex-direction:column !important; gap:18px;} .feature .fimg{flex-basis:auto;}
+    .grid3{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+
+  /* ---------- EMPRESAS ---------- */
+  .brands{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .brands .b{background:var(--cream); padding:30px 24px; display:flex; flex-direction:column; gap:7px; min-height:138px;
+    transition:background .4s; position:relative;}
+  .brands .b::before{content:""; position:absolute; left:0; top:0; width:0; height:1px; background:var(--tan-deep); transition:width .5s cubic-bezier(.2,.7,.2,1);}
+  .brands .b:hover{background:var(--paper);} .brands .b:hover::before{width:100%;}
+  .brands .b .nm{font-family:"Bodoni Moda",serif; font-size:22px;}
+  .brands .b .ds{font-size:13px; color:#8A8175; line-height:1.5;}
+  @media(max-width:820px){ .brands{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  @media(max-width:520px){ .brands{grid-template-columns:1fr;} }
+
+  /* ---------- RODAPÉ ---------- */
+  footer{position:relative; overflow:hidden; background:var(--cream-2); padding:clamp(70px,11vh,110px) 0 48px;}
+  footer .top{display:flex; justify-content:space-between; align-items:flex-end; gap:30px; flex-wrap:wrap;}
+  footer .bmark{font-family:"Bodoni Moda",serif; font-size:30px;}
+  footer .bmark em{font-family:"Jost",sans-serif; font-weight:300; font-style:normal;}
+  footer .tl{font-size:13px; letter-spacing:.13em; text-transform:uppercase; color:var(--tan-deep); margin-top:8px;}
+  footer .visit{font-size:14px; color:var(--soft); text-align:right; line-height:1.9;}
+  footer .cols{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px;
+    border-top:1px solid var(--line); margin-top:36px; padding-top:30px; font-size:14px; color:var(--soft);}
+  footer .cols .k{color:#A89A82; display:block; margin-bottom:5px;}
+  footer .cols a:hover{color:var(--ink);}
+  footer .fine{margin-top:34px; font-size:12px; color:#A89A82;}
+  @media(max-width:820px){
+    footer .visit{text-align:left;} footer .cols{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+
+
+  @media(prefers-reduced-motion:reduce){ .grain{display:none;} }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="nav" id="nav">
+  <a class="brand serif" href="#top">Casa<em>Dezoito</em></a>
+  <div class="links">
+    <a href="#conceito">Conceito</a>
+    <a href="#espacos">Espaços</a>
+    <a href="#empresas">Empresas</a>
+    <a href="#contato">Contato</a>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#conceito">Conceito</a>
+  <a href="#espacos">Espaços</a>
+  <a href="#empresas">Empresas</a>
+  <a href="#contato">Contato</a>
+  <div class="mm-foot">Av. Rotary, 134 — Vila Brandina, Campinas/SP</div>
+</div>
+
+<div class="rail" aria-hidden="true">
+  <div class="track"><i id="railFill"></i></div>
+  <a href="#conceito">01 · Conceito</a>
+  <a href="#pessoas">02 · Pessoas</a>
+  <a href="#unir">03 · União</a>
+  <a href="#espacos">04 · Espaços</a>
+  <a href="#empresas">05 · Empresas</a>
+</div>
+
+<span id="top"></span>
+
+<!-- HERO -->
+<div id="heroTrack">
+  <section class="hero">
+    <div class="wrap">
+      <div class="col">
+        <div class="eyebrow anim-eb">CasaDezoito &nbsp;·&nbsp; Lares, Design e Negócios</div>
+        <h1 class="serif" data-split>Um espaço onde tudo faz sentido.</h1>
+        <p class="lead" data-split>A CasaDezoito reúne, sob um mesmo teto, empresas que compartilham um jeito de trabalhar — com curadoria, tempo e escuta. No pavimento superior, a Galeria 18: o andar de negócios onde as marcas convivem.</p>
+        <div class="tagline"><i class="anim-tl"></i><span class="anim-tls">Um espaço vivo, no tempo certo</span></div>
+      </div>
+      <div class="frame">
+        <div class="box">
+          <div class="mask"><img id="heroImg" width="1500" height="1000" decoding="async" fetchpriority="high" src="/assets/fotos/recepcao.jpg" alt="Recepção da CasaDezoito"></div>
+          <svg viewBox="0 0 400 300" preserveAspectRatio="none">
+            <path class="fpath" d="M2 2 H398 V298 H2 Z" fill="none" stroke="#B18F5E" stroke-width="1"/>
+            <path class="fpath" d="M2 150 H120 M280 150 H398 M200 2 V70 M200 230 V298" fill="none" stroke="#CFC1A6" stroke-width="1"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- 01 CONCEITO -->
+<section id="conceito">
+  <div class="concept">
+    <div class="wrap">
+      <div class="eighteen">
+        <svg viewBox="0 0 100 100">
+          <rect class="cst" x="4" y="4" width="92" height="92" fill="none" stroke="#DED4C2" stroke-width="0.5"/>
+          <line class="cst" x1="61.8" y1="4" x2="61.8" y2="96" stroke="#E4DBCB" stroke-width="0.5"/>
+          <line class="cst" x1="4" y1="38.2" x2="96" y2="38.2" stroke="#E4DBCB" stroke-width="0.5"/>
+          <circle class="c-ring" cx="50" cy="50" r="46" fill="none" stroke="#CFC1A6" stroke-width="0.7"/>
+          <line class="c-cross" x1="50" y1="4" x2="50" y2="96" stroke="#E0D7C7" stroke-width="0.5"/>
+          <line class="c-cross" x1="4" y1="50" x2="96" y2="50" stroke="#E0D7C7" stroke-width="0.5"/>
+        </svg>
+        <div class="echo serif" aria-hidden="true">18</div>
+        <div class="digits serif"><span class="d d1">1</span><span class="d d8">8</span></div>
+      </div>
+      <div class="txt">
+        <div class="eyebrow cf">01 — O Conceito</div>
+        <div class="duo cf">
+          <div>
+            <h4>Casa</h4>
+            <p>Porque se entra para ficar. Um lugar transparente, sofisticado e — inesperadamente — humano, onde marcas diferentes se tornam parte de um mesmo ritmo.</p>
+          </div>
+          <div>
+            <h4>Dezoito</h4>
+            <p>Porque há números que não são apenas números. Na tradição judaica, o 18 é <span class="i">Chai</span> — a vida que se manifesta em cada gesto. Na numerologia ocidental, é o 1 (início, ação) somado ao 8 (poder, realização).</p>
+          </div>
+        </div>
+        <h3 class="serif cf">Aqui, o 18 traduz o que move o invisível: confiança, tempo, estética e respeito.</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="band" data-reveal>
+  <div class="wrap">
+    <p class="serif" data-split data-split-slow>Como uma galeria — mas sem paredes brancas nem o silêncio absoluto. Aqui, as obras são as conversas, as ideias em movimento, as marcas que convivem. E o cliente caminha por tudo isso como parte principal da cena.</p>
+    <div class="who ri">CasaDezoito</div>
+  </div>
+</div>
+
+<!-- 02 PESSOAS -->
+<section id="pessoas" class="sec" data-reveal>
+  <div class="ghost r" data-ghost>02</div>
+  <div class="wrap">
+    <div class="head">
+      <div class="lbl"><div class="eyebrow ri">02 — As Pessoas</div></div>
+      <div class="h"><h2 data-split>Quem passa pela CasaDezoito não está apenas comprando, investindo ou tomando um café.</h2></div>
+    </div>
+    <div class="body">
+      <div class="lbl"></div>
+      <div class="c">
+        <p class="ri">Está vivendo um momento com significado. São pessoas curiosas, exigentes e discretas, que reconhecem o valor da escuta atenta, da arquitetura bem pensada e do aconselhamento que vem com conhecimento e sensibilidade.</p>
+        <p class="ri">Não têm pressa — porque sabem que gerar valor leva tempo. E não escolhem entre o racional e o emocional: encontram esse equilíbrio no mesmo lugar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 UNIR -->
+<section id="unir" class="sec alt" data-reveal>
+  <div class="ghost l" data-ghost>03</div>
+  <div class="wrap">
+    <div class="head">
+      <div class="lbl"><div class="eyebrow ri">03 — Por que unir operações</div></div>
+      <div class="h"></div>
+    </div>
+    <div class="body">
+      <div class="lbl"></div>
+      <div class="c">
+        <p class="big" data-split>Num cenário em que o fluxo espontâneo diminui e o consumidor busca mais do que o produto — uma experiência, um significado —, a integração de empresas fortalece vínculos, gera valor e transforma a jornada de compra em vivência.</p>
+        <p class="ri">Este espaço foi pensado para que a presença física volte a fazer sentido — não apenas como ponto de venda, mas como ponto de conexão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ESPAÇOS -->
+<section id="espacos" class="sec" data-reveal>
+  <div class="ghost r" data-ghost>04</div>
+  <div class="wrap">
+    <div class="head">
+      <div class="lbl"><div class="eyebrow ri">04 — Os Espaços</div></div>
+      <div class="h"><h2 data-split>Dois pavimentos, um mesmo ritmo.</h2></div>
+    </div>
+
+    <div class="floor">
+      <div class="fl-tag ri">Pavimento térreo — o espaço de convivência</div>
+      <div class="feature">
+        <div class="fimg clipwipe" data-wipe><img width="1300" height="867" decoding="async" src="/assets/fotos/gourmet.jpg" alt="Área gourmet" loading="lazy" data-par></div>
+        <div class="ftext">
+          <h3 class="fl-h ri">Para estar, escolher e se reconhecer</h3>
+          <div class="rooms ri">
+            <div><b>Sterna Café</b><br><span>o café da casa</span></div>
+            <div><b>Área Gourmet</b><br><span>cozinha e mesa para encontros</span></div>
+            <div><b>Lounges &amp; Estar</b><br><span>ambientes de permanência</span></div>
+            <div><b>Espaço Kids</b><br><span>para a visita caber na rotina</span></div>
+            <div><b>Sala de Amostras</b><br><span>materiais para ver e tocar</span></div>
+            <div><b>Closets · Toilettes</b><br><span>apoio e conforto</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid3">
+        <figure class="g clipwipe" data-wipe><img width="1300" height="867" decoding="async" src="/assets/fotos/lounge.jpg" alt="Lounge principal" loading="lazy" data-par><figcaption>Lounge principal</figcaption></figure>
+        <figure class="g clipwipe" data-wipe><img width="1200" height="800" decoding="async" src="/assets/fotos/kids.jpg" alt="Espaço kids" loading="lazy" data-par><figcaption>Espaço Kids</figcaption></figure>
+        <figure class="g clipwipe" data-wipe><img width="1200" height="800" decoding="async" src="/assets/fotos/amostras.jpg" alt="Sala de amostras" loading="lazy" data-par><figcaption>Sala de Amostras</figcaption></figure>
+      </div>
+
+      <div class="fl-tag ri">Pavimento superior — Galeria 18</div>
+      <div class="feature rev">
+        <div class="fimg clipwipe" data-wipe><img width="1200" height="800" decoding="async" src="/assets/fotos/superior.jpg" alt="Pavimento superior" loading="lazy" data-par></div>
+        <div class="ftext">
+          <h3 class="fl-h ri">O andar de negócios</h3>
+          <p class="ri" style="font-size:15px;color:var(--soft);line-height:1.75;max-width:460px">As empresas da casa dividem aqui o mesmo ritmo de trabalho, com salas de reunião, financeiro e áreas de apoio compartilhadas. WCs e lockers no pavimento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 EMPRESAS -->
+<section id="empresas" class="sec alt" data-reveal>
+  <div class="ghost l" data-ghost>05</div>
+  <div class="wrap">
+    <div class="head">
+      <div class="lbl"><div class="eyebrow ri">05 — As Empresas</div></div>
+      <div class="h"><h2 data-split>Marcas diferentes, um mesmo endereço.</h2></div>
+    </div>
+    <div class="brands ri">
+      <div class="b"><span class="nm">Imovit</span><span class="ds">Imobiliária · idealizadora e curadora do espaço</span></div>
+      <div class="b"><span class="nm">Montblanc Capital</span><span class="ds">Assessoria de investimentos</span></div>
+      <div class="b"><span class="nm">Veraci</span><span class="ds">Design e mobiliário</span></div>
+      <div class="b"><span class="nm">GOMA</span><span class="ds">Branding e comunicação</span></div>
+      <div class="b"><span class="nm">Larissa Gimenes</span><span class="ds">Arquitetura e interiores</span></div>
+      <div class="b"><span class="nm">Sterna Café</span><span class="ds">O café da casa</span></div>
+    </div>
+    <div class="ri" style="margin-top:16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tan-deep)">Logos oficiais entram na versão final</div>
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer id="contato" data-reveal>
+  <div class="ghost l" data-ghost style="opacity:.05;font-size:min(52vw,620px)">18</div>
+  <div class="wrap">
+    <div class="top">
+      <div class="ri">
+        <div class="bmark serif">Casa<em>Dezoito</em></div>
+        <div class="tl">Lares, Design e Negócios</div>
+      </div>
+      <div class="visit ri">
+        Visitas com hora marcada<br>
+        Av. Rotary, 134 — Vila Brandina<br>Campinas / SP
+      </div>
+    </div>
+    <div class="cols ri">
+      <div><span class="k">E-mail</span><a href="mailto:gestao@casadezoito.com.br">gestao@casadezoito.com.br</a></div>
+      <div><span class="k">Instagram</span><a href="https://instagram.com/casadezoito_campinas" target="_blank" rel="noopener">@casadezoito_campinas</a></div>
+      <div><span class="k">Como chegar</span><a href="https://maps.google.com/?q=Av.+Rotary,+134,+Vila+Brandina,+Campinas+SP" target="_blank" rel="noopener">Ver no mapa</a></div>
+    </div>
+    <div class="fine">© 2026 CasaDezoito. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+
+<script>
+/* hard failsafe: if the animation script threw, reveal everything so nothing is lost */
+setTimeout(function(){
+  if(window.__anim) return;
+  try{
+    document.querySelectorAll('.ri').forEach(function(el){ el.style.opacity='1'; el.style.transform='none'; });
+    document.querySelectorAll('.rv > i').forEach(function(i){ i.style.transform='translateY(0)'; });
+    document.querySelectorAll('[data-wipe]').forEach(function(w){ w.style.clipPath='none'; });
+  }catch(e){}
+}, 3500);
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clamp=function(v,a,b){return v<a?a:v>b?b:v;}, lerp=function(a,b,t){return a+(b-a)*t;},
+      map=function(p,a,b){return clamp((p-a)/(b-a),0,1);},
+      easeOut=function(t){return 1-Math.pow(1-t,3);},
+      overshoot=function(t){var c=1.7;return 1+(--t)*t*((c+1)*t+c);},
+      $=function(s,r){return (r||document).querySelector(s);},
+      $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s));};
+
+  /* split words */
+  try{
+    $$('[data-split]').forEach(function(el){
+      var slow=el.hasAttribute('data-split-slow');
+      var parts=el.innerHTML.replace(/<br\s*\/?>/gi,' |BR| ').split(/\s+/).filter(Boolean);
+      el.innerHTML=parts.map(function(p){
+        return p==='|BR|'?'<br>':'<span class="rv"><i style="transform:translateY(120%)">'+p+'</i></span>';
+      }).join(' ');
+      el.dataset.slow = slow ? '1' : '';
+    });
+  }catch(e){}
+
+  var EO='cubic-bezier(.2,.7,.2,1)';
+  function riseWords(el, base, step, dur){
+    $$('.rv > i', el).forEach(function(i,n){
+      try{
+        i.animate([{transform:'translateY(120%)'},{transform:'translateY(0)'}],
+          {duration:dur||820, delay:(base||0)+n*(step||46), easing:EO, fill:'both'});
+      }catch(e){ i.style.transform='translateY(0)'; }
+    });
+  }
+
+  /* ---- hero intro ---- */
+  var heroImg=$('#heroImg');
+  if(!reduce){
+    var eb=$('.anim-eb');
+    if(eb) eb.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],{duration:800,delay:60,easing:EO,fill:'both'});
+    riseWords($('.hero h1'), 160, 58, 900);
+    riseWords($('.hero .lead'), 460, 9, 620);
+    try{ heroImg.animate([{clipPath:'inset(0 100% 0 0)',transform:'scale(1.1)'},{clipPath:'inset(0 0 0 0)',transform:'scale(1)'}],
+      {duration:1300,delay:140,easing:EO,fill:'both'}); }catch(e){
+      heroImg.animate([{opacity:0},{opacity:1}],{duration:900,fill:'both'}); }
+    $$('.hero .fpath').forEach(function(p){ try{ var L=p.getTotalLength();
+      p.animate([{strokeDasharray:L,strokeDashoffset:L},{strokeDasharray:L,strokeDashoffset:0}],{duration:1400,delay:200,easing:'ease',fill:'both'});
+    }catch(e){} });
+    var tl=$('.anim-tl'); if(tl) tl.animate([{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:700,delay:540,easing:EO,fill:'both'});
+    var tls=$('.anim-tls'); if(tls) tls.animate([{opacity:0},{opacity:1}],{duration:600,delay:680,fill:'both'});
+  }
+
+  /* ---- concept 18 ---- */
+  var d1=$('.eighteen .d1'), d8=$('.eighteen .d8'), ring=$('.eighteen .c-ring'),
+      cross=$$('.eighteen .c-cross'), cst=$$('.eighteen .cst'), esvg=$('.eighteen svg'),
+      echo=$('.eighteen .echo'), cFades=$$('.concept .txt .cf'), conceptSec=$('#conceito');
+  var RING=2*Math.PI*46;
+  /* on mobile the concept section is static — reveal the "18" on scroll-in instead of scrubbing it */
+  if(!reduce && d1 && innerWidth > 860){
+    d1.style.transform='translateX(-160%)'; d1.style.opacity='0';
+    d8.style.transform='translateX(160%)'; d8.style.opacity='0';
+    if(echo){ echo.style.opacity='0'; echo.style.transform='scale(1.15)'; }
+    ring.style.strokeDasharray=RING; ring.style.strokeDashoffset=RING;
+    cross.forEach(function(c){ c.style.transformOrigin='50px 50px'; c.style.transform='scale(0)'; });
+    cst.forEach(function(c){ var L=140; c.style.strokeDasharray=L; c.style.strokeDashoffset=L; });
+    cFades.forEach(function(f){ f.style.opacity='0'; f.style.transform='translateY(22px)'; });
+  } else if(!reduce && d1){
+    /* mobile: reveal the concept block once it enters view */
+    try{
+      var cio=new IntersectionObserver(function(es){ es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        [d1,d8].forEach(function(el,i){ el.animate([{transform:'translateY(20px)',opacity:0},{transform:'none',opacity:1}],{duration:700,delay:i*120,easing:EO,fill:'both'}); });
+        cFades.forEach(function(f,n){ f.animate([{transform:'translateY(22px)',opacity:0},{transform:'none',opacity:1}],{duration:700,delay:200+n*110,easing:EO,fill:'both'}); });
+        cio.disconnect();
+      }); }, {threshold:0.2});
+      cio.observe(conceptSec);
+    }catch(e){}
+  }
+
+  /* ---- reveal-on-scroll ---- */
+  var wipes=$$('[data-wipe]');
+  if(!reduce){
+    var revItems=$$('.ri');
+    var show=function(it){ it.style.opacity='1'; it.style.transform='none'; };
+    revItems.forEach(function(it){
+      if(it.getBoundingClientRect().top > innerHeight*0.82){
+        it.style.opacity='0'; it.style.transform='translateY(18px)'; it.dataset.hid='1';
+      }
+    });
+    var splitEls=$$('[data-split]').filter(function(el){ return !el.closest('.hero'); });
+    splitEls.forEach(function(el){ if(el.getBoundingClientRect().top > innerHeight*0.86) el.dataset.hid='1'; });
+    wipes.forEach(function(w){ if(w.getBoundingClientRect().top > innerHeight*0.9) w.dataset.hid='1'; else w.classList.remove('clipwipe'); });
+    try{
+      var io=new IntersectionObserver(function(ents){
+        ents.forEach(function(e){
+          if(!e.isIntersecting) return;
+          var t=e.target;
+          if(t.classList.contains('rv')||t.hasAttribute('data-split')){
+            riseWords(t, 0, t.dataset.slow?70:40, 780);
+          } else if(t.hasAttribute('data-wipe')){
+            t.style.transition='clip-path 1s '+EO; t.style.clipPath='inset(0 0 0 0)';
+          } else { show(t); }
+          io.unobserve(t);
+        });
+      }, {threshold:0, rootMargin:'0px 0px -15% 0px'});
+      revItems.forEach(function(it){ if(it.dataset.hid) io.observe(it); else show(it); });
+      splitEls.forEach(function(el){ if(el.dataset.hid) io.observe(el); else riseWords(el,0,40,780); });
+      wipes.forEach(function(w){ if(w.dataset.hid) io.observe(w); });
+    }catch(e){
+      revItems.forEach(show);
+      splitEls.forEach(function(el){ riseWords(el,0,40,780); });
+      wipes.forEach(function(w){ w.classList.remove('clipwipe'); });
+    }
+    window._revChk=function(){
+      revItems.forEach(function(it){ if(it.dataset.hid && it.style.opacity==='0' && it.getBoundingClientRect().top<innerHeight*0.85) show(it); });
+    };
+  } else {
+    wipes.forEach(function(w){ w.classList.remove('clipwipe'); });
+  }
+
+  /* ---- smoothed scroll + parallax ---- */
+  var sm=scrollY, target=scrollY, running=false;
+  var ghosts=$$('[data-ghost]'), pars=$$('[data-par]'),
+      heroWrap=$('.hero .wrap'), heroTrack=$('#heroTrack'),
+      nav=$('#nav'), railFill=$('#railFill'), railLinks=$$('.rail a'),
+      secEls=['conceito','pessoas','unir','espacos','empresas'].map(function(id){return document.getElementById(id);}),
+      docH=function(){ return document.documentElement.scrollHeight - innerHeight; };
+
+  function seg(el){ var r=el.getBoundingClientRect(), t=r.height-innerHeight;
+    if(t<=0) return r.top<=0?1:0; return clamp(-r.top/t,0,1); }
+
+  function apply(){
+    var wide = innerWidth > 860;
+    /* hero drift (desktop only — hero is static on mobile) */
+    if(heroWrap){
+      if(innerWidth > 760){
+        var hp=seg(heroTrack);
+        heroWrap.style.transform='translateY('+(-hp*70)+'px)';
+        heroWrap.style.opacity=String(1-hp*0.7);
+      } else { heroWrap.style.transform=''; heroWrap.style.opacity=''; }
+    }
+    if(heroImg && !reduce && innerWidth > 760){
+      var hr=heroImg.closest('.frame').getBoundingClientRect();
+      var pv=clamp((innerHeight/2 - (hr.top+hr.height/2))/innerHeight, -1, 1);
+      heroImg.style.transform='translateY('+(pv*22)+'px) scale(1.04)';
+    }
+    /* concept scrub (desktop only) */
+    if(!reduce && d1 && wide){
+      var cp=seg(conceptSec);
+      cst.forEach(function(c,i){ var L=140, t=map(cp,0.02+i*0.05,0.22+i*0.05); c.style.strokeDashoffset=String(L*(1-t)); });
+      cross.forEach(function(c){ c.style.transform='scale('+map(cp,0.05,0.2)+')'; });
+      ring.style.strokeDashoffset=String(RING*(1-map(cp,0.05,0.5)));
+      if(esvg) esvg.style.transform='rotate('+(cp*22)+'deg)';
+      var a=map(cp,0.16,0.46), b=map(cp,0.24,0.56);
+      d1.style.transform='translateX('+lerp(-160,0,overshoot(a))+'%)'; d1.style.opacity=String(map(cp,0.16,0.34));
+      d8.style.transform='translateX('+lerp(160,0,overshoot(b))+'%)'; d8.style.opacity=String(map(cp,0.24,0.42));
+      if(echo){ var ee=map(cp,0.4,0.7); echo.style.opacity=String(ee*0.9); echo.style.transform='scale('+lerp(1.15,1,easeOut(ee))+')'; }
+      cFades.forEach(function(f,n){ var t=map(cp,0.44+n*0.06,0.66+n*0.06);
+        f.style.opacity=String(t); f.style.transform='translateY('+lerp(22,0,easeOut(t))+'px)'; });
+    }
+    /* ghost numerals */
+    ghosts.forEach(function(g){
+      var r=g.parentElement.getBoundingClientRect();
+      var p=(innerHeight - r.top)/(innerHeight + r.height); /* 0..1 as it passes */
+      g.style.transform='translateY('+((p-0.5)*-90)+'px)';
+    });
+    /* image ken-burns */
+    pars.forEach(function(im){
+      var r=im.parentElement.getBoundingClientRect();
+      if(r.bottom<0||r.top>innerHeight) return;
+      var p=clamp((innerHeight - r.top)/(innerHeight + r.height), 0, 1);
+      im.style.transform='translateY('+((p-0.5)*-9)+'%)';
+    });
+    /* nav + rail */
+    if(nav) nav.classList.toggle('solid', target > innerHeight*0.55);
+    if(railFill) railFill.style.height=(clamp(target/docH(),0,1)*100)+'%';
+    var mid=innerHeight*0.42, active=-1;
+    secEls.forEach(function(el,i){ if(el){ var r=el.getBoundingClientRect(); if(r.top<=mid && r.bottom>=mid) active=i; } });
+    railLinks.forEach(function(a,i){ a.classList.toggle('on', i===active); });
+    if(window._revChk) window._revChk();
+  }
+
+  function loop(){
+    sm += (target - sm) * 0.12;
+    if(Math.abs(target - sm) < 0.4){ sm = target; running=false; }
+    apply();
+    if(running) requestAnimationFrame(loop);
+  }
+  function onScroll(){ target = scrollY; if(!running){ running=true; requestAnimationFrame(loop); } }
+  addEventListener('scroll', onScroll, {passive:true});
+  addEventListener('resize', function(){ target=scrollY; apply(); });
+  apply();
+
+  window.__anim = 1;
+
+  /* mobile menu */
+  var menuBtn=$('#menuBtn'), mobileMenu=$('#mobileMenu');
+  function setMenu(open){
+    if(!menuBtn||!mobileMenu) return;
+    menuBtn.setAttribute('aria-expanded', open?'true':'false');
+    menuBtn.setAttribute('aria-label', open?'Fechar menu':'Abrir menu');
+    mobileMenu.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  if(menuBtn) menuBtn.addEventListener('click', function(){ setMenu(menuBtn.getAttribute('aria-expanded')!=='true'); });
+  addEventListener('keydown', function(e){ if(e.key==='Escape') setMenu(false); });
+
+  /* anchor scroll */
+  $$('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(ev){
+      var id=a.getAttribute('href').slice(1); if(!id) return;
+      var t=document.getElementById(id); if(!t) return;
+      ev.preventDefault();
+      setMenu(false);
+      scrollTo({top: scrollY + t.getBoundingClientRect().top - 58, behavior: reduce?'auto':'smooth'});
+    });
+  });
+})();
+</script>
+</body>
+</html>
