@@ -385,7 +385,7 @@
       <div class="grid3">
         <figure class="g clipwipe" data-wipe><img width="1300" height="867" decoding="async" src="/assets/fotos/lounge.jpg" alt="Lounge principal" loading="lazy" data-par><figcaption>Lounge principal</figcaption></figure>
         <figure class="g clipwipe" data-wipe><img width="1200" height="800" decoding="async" src="/assets/fotos/kids.jpg" alt="Espaço kids" loading="lazy" data-par><figcaption>Espaço Kids</figcaption></figure>
-        <figure class="g clipwipe" data-wipe><img width="1200" height="800" decoding="async" src="/assets/fotos/amostras.jpg" alt="Sala de amostras" loading="lazy" data-par><figcaption>Sala de Amostras</figcaption></figure>
+        <figure class="g clipwipe" data-wipe><img width="1200" height="800" decoding="async" src="/assets/fotos/estar.jpg" alt="Sala de estar" loading="lazy" data-par><figcaption>Sala de Estar</figcaption></figure>
       </div>
 
       <div class="fl-tag ri">Pavimento superior — Galeria 18</div>
@@ -542,29 +542,32 @@ setTimeout(function(){
     var splitEls=$$('[data-split]').filter(function(el){ return !el.closest('.hero'); });
     splitEls.forEach(function(el){ if(el.getBoundingClientRect().top > innerHeight*0.86) el.dataset.hid='1'; });
     wipes.forEach(function(w){ if(w.getBoundingClientRect().top > innerHeight*0.9) w.dataset.hid='1'; else w.classList.remove('clipwipe'); });
+    var doSplit=function(el){ if(el.dataset.done) return; el.dataset.done='1'; riseWords(el, 0, el.dataset.slow?70:40, 780); };
+    var doWipe=function(w){ if(w.dataset.done) return; w.dataset.done='1'; w.style.transition='clip-path 1s '+EO; w.style.clipPath='inset(0 0 0 0)'; };
+    var doShow=function(it){ if(it.dataset.done) return; it.dataset.done='1'; show(it); };
     try{
       var io=new IntersectionObserver(function(ents){
         ents.forEach(function(e){
           if(!e.isIntersecting) return;
           var t=e.target;
-          if(t.classList.contains('rv')||t.hasAttribute('data-split')){
-            riseWords(t, 0, t.dataset.slow?70:40, 780);
-          } else if(t.hasAttribute('data-wipe')){
-            t.style.transition='clip-path 1s '+EO; t.style.clipPath='inset(0 0 0 0)';
-          } else { show(t); }
+          if(t.classList.contains('rv')||t.hasAttribute('data-split')) doSplit(t);
+          else if(t.hasAttribute('data-wipe')) doWipe(t);
+          else doShow(t);
           io.unobserve(t);
         });
       }, {threshold:0, rootMargin:'0px 0px -15% 0px'});
-      revItems.forEach(function(it){ if(it.dataset.hid) io.observe(it); else show(it); });
-      splitEls.forEach(function(el){ if(el.dataset.hid) io.observe(el); else riseWords(el,0,40,780); });
-      wipes.forEach(function(w){ if(w.dataset.hid) io.observe(w); });
+      revItems.forEach(function(it){ if(it.dataset.hid) io.observe(it); else doShow(it); });
+      splitEls.forEach(function(el){ if(el.dataset.hid) io.observe(el); else doSplit(el); });
+      wipes.forEach(function(w){ if(w.dataset.hid) io.observe(w); else doWipe(w); });
     }catch(e){
-      revItems.forEach(show);
-      splitEls.forEach(function(el){ riseWords(el,0,40,780); });
-      wipes.forEach(function(w){ w.classList.remove('clipwipe'); });
+      revItems.forEach(doShow); splitEls.forEach(doSplit); wipes.forEach(function(w){ w.classList.remove('clipwipe'); });
     }
+    /* failsafe on every scroll frame: nothing in view stays hidden (covers fast scrolls the observer misses) */
     window._revChk=function(){
-      revItems.forEach(function(it){ if(it.dataset.hid && it.style.opacity==='0' && it.getBoundingClientRect().top<innerHeight*0.85) show(it); });
+      var lim=innerHeight*0.88;
+      revItems.forEach(function(it){ if(!it.dataset.done && it.getBoundingClientRect().top<lim) doShow(it); });
+      splitEls.forEach(function(el){ if(!el.dataset.done && el.getBoundingClientRect().top<lim) doSplit(el); });
+      wipes.forEach(function(w){ if(!w.dataset.done && w.getBoundingClientRect().top<lim) doWipe(w); });
     };
   } else {
     wipes.forEach(function(w){ w.classList.remove('clipwipe'); });
