@@ -42,6 +42,6 @@ assets/
 - [x] Logo do **Sterna Café**
 - [x] Telefone / WhatsApp — (19) 99787-1638
 - [x] Logos das 6 empresas na seção "Empresas"
-- [ ] Foto do "andar de negócios" (pavimento superior) — a atual (`superior.jpg`) pode ser de uma sala do térreo; confirmar qual C18-XX.jpg é realmente do pavimento superior
+- [x] Foto do "andar de negócios" — trocada pela C18-26 (única do pavimento superior, confirmado por Eduardo)
 - [ ] Aprovação final da copy pelo cliente
 - [ ] Revisar tempos verbais (o espaço já está pronto; alguns trechos estão no futuro)
