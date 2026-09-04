@@ -167,6 +167,8 @@
     .sec .head{flex-direction:column; gap:16px; margin-bottom:28px;}
     .sec .body{flex-direction:column; gap:14px;}
   }
+  .sec .head .lbl .acc{display:block; width:52px; height:13px; margin-bottom:14px; overflow:visible;}
+  .sec .head .lbl .acc path{fill:none; stroke:var(--tan); stroke-width:1; vector-effect:non-scaling-stroke;}
 
   /* ---------- ESPAÇOS ---------- */
   .fl-tag{font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--tan-deep); margin-bottom:14px;}
@@ -195,6 +197,10 @@
   .brands .b::before{content:""; position:absolute; left:0; top:0; width:0; height:1px; background:var(--tan-deep); transition:width .5s cubic-bezier(.2,.7,.2,1);}
   .brands .b:hover{background:var(--paper);} .brands .b:hover::before{width:100%;}
   .brands .b .nm{font-family:"Bodoni Moda",serif; font-size:22px;}
+  .brands .b .lg{height:32px; width:auto; max-width:100%; object-fit:contain; object-position:left center; filter:grayscale(1) contrast(1.05) brightness(.9);
+    opacity:.86; transition:filter .4s, opacity .4s;}
+  .brands .b:hover .lg{filter:none; opacity:1;}
+  .brands .b .lg.sq{height:52px;}
   .brands .b .ds{font-size:13px; color:#8A8175; line-height:1.5;}
   @media(max-width:820px){ .brands{grid-template-columns:repeat(2,minmax(0,1fr));} }
   @media(max-width:520px){ .brands{grid-template-columns:1fr;} }
@@ -323,7 +329,7 @@
   <div class="ghost r" data-ghost>02</div>
   <div class="wrap">
     <div class="head">
-      <div class="lbl"><div class="eyebrow ri">02 — As Pessoas</div></div>
+      <div class="lbl"><svg class="acc" data-line viewBox="0 0 52 13" aria-hidden="true"><path d="M0 6.5 H52 M0 1 V12 M52 1 V12"/></svg><div class="eyebrow ri">02 — As Pessoas</div></div>
       <div class="h"><h2 data-split>Quem passa pela CasaDezoito não está apenas comprando, investindo ou tomando um café.</h2></div>
     </div>
     <div class="body">
@@ -341,7 +347,7 @@
   <div class="ghost l" data-ghost>03</div>
   <div class="wrap">
     <div class="head">
-      <div class="lbl"><div class="eyebrow ri">03 — Por que unir operações</div></div>
+      <div class="lbl"><svg class="acc" data-line viewBox="0 0 52 13" aria-hidden="true"><path d="M0 6.5 H52 M0 1 V12 M52 1 V12"/></svg><div class="eyebrow ri">03 — Por que unir operações</div></div>
       <div class="h"></div>
     </div>
     <div class="body">
@@ -359,7 +365,7 @@
   <div class="ghost r" data-ghost>04</div>
   <div class="wrap">
     <div class="head">
-      <div class="lbl"><div class="eyebrow ri">04 — Os Espaços</div></div>
+      <div class="lbl"><svg class="acc" data-line viewBox="0 0 52 13" aria-hidden="true"><path d="M0 6.5 H52 M0 1 V12 M52 1 V12"/></svg><div class="eyebrow ri">04 — Os Espaços</div></div>
       <div class="h"><h2 data-split>Dois pavimentos, um mesmo ritmo.</h2></div>
     </div>
 
@@ -380,9 +386,9 @@
         </div>
       </div>
       <div class="grid3">
-        <figure class="g clipwipe" data-wipe><img width="1300" height="867" decoding="async" src="/assets/fotos/lounge.jpg" alt="Lounge principal" loading="lazy" data-par><figcaption>Lounge principal</figcaption></figure>
-        <figure class="g clipwipe" data-wipe><img width="1200" height="800" decoding="async" src="/assets/fotos/kids.jpg" alt="Espaço kids" loading="lazy" data-par><figcaption>Espaço Kids</figcaption></figure>
-        <figure class="g clipwipe" data-wipe><img width="1200" height="800" decoding="async" src="/assets/fotos/estar.jpg" alt="Sala de estar" loading="lazy" data-par><figcaption>Sala de Estar</figcaption></figure>
+        <figure class="g clipwipe" data-wipe data-st="0"><img width="1300" height="867" decoding="async" src="/assets/fotos/lounge.jpg" alt="Lounge principal" loading="lazy" data-par><figcaption>Lounge principal</figcaption></figure>
+        <figure class="g clipwipe" data-wipe data-st="1"><img width="1200" height="800" decoding="async" src="/assets/fotos/kids.jpg" alt="Espaço kids" loading="lazy" data-par><figcaption>Espaço Kids</figcaption></figure>
+        <figure class="g clipwipe" data-wipe data-st="2"><img width="1200" height="800" decoding="async" src="/assets/fotos/estar.jpg" alt="Sala de estar" loading="lazy" data-par><figcaption>Sala de Estar</figcaption></figure>
       </div>
 
       <div class="fl-tag ri">Pavimento superior — Galeria 18</div>
@@ -402,18 +408,17 @@
   <div class="ghost l" data-ghost>05</div>
   <div class="wrap">
     <div class="head">
-      <div class="lbl"><div class="eyebrow ri">05 — As Empresas</div></div>
+      <div class="lbl"><svg class="acc" data-line viewBox="0 0 52 13" aria-hidden="true"><path d="M0 6.5 H52 M0 1 V12 M52 1 V12"/></svg><div class="eyebrow ri">05 — As Empresas</div></div>
       <div class="h"><h2 data-split>Marcas diferentes, um mesmo endereço.</h2></div>
     </div>
-    <div class="brands ri">
-      <div class="b"><span class="nm">Imovit</span><span class="ds">Imobiliária · idealizadora e curadora do espaço</span></div>
-      <div class="b"><span class="nm">Montblanc Capital</span><span class="ds">Assessoria de investimentos</span></div>
-      <div class="b"><span class="nm">Veraci</span><span class="ds">Design e mobiliário</span></div>
-      <div class="b"><span class="nm">GOMA</span><span class="ds">Branding e comunicação</span></div>
-      <div class="b"><span class="nm">Larissa Gimenes</span><span class="ds">Arquitetura e interiores</span></div>
-      <div class="b"><span class="nm">Sterna Café</span><span class="ds">O café da casa</span></div>
+    <div class="brands">
+      <div class="b ri" data-st="0"><img class="lg" src="/assets/logos/imovit.png" alt="Imovit" loading="lazy"><span class="ds">Imobiliária de alto padrão</span></div>
+      <div class="b ri" data-st="1"><img class="lg" src="/assets/logos/montblanc.png" alt="Montblanc Capital" loading="lazy"><span class="ds">Assessoria de investimentos</span></div>
+      <div class="b ri" data-st="2"><img class="lg" src="/assets/logos/veraci.png" alt="Veraci" loading="lazy"><span class="ds">Design e mobiliário</span></div>
+      <div class="b ri" data-st="3"><img class="lg" src="/assets/logos/goma.png" alt="GOMA" loading="lazy"><span class="ds">Construtora</span></div>
+      <div class="b ri" data-st="4"><img class="lg" src="/assets/logos/larissa.png" alt="Larissa Gimenes" loading="lazy"><span class="ds">Arquitetura e interiores</span></div>
+      <div class="b ri" data-st="5"><img class="lg sq" src="/assets/logos/sterna.png" alt="Sterna Café" loading="lazy"><span class="ds">O café da casa</span></div>
     </div>
-    <div class="ri" style="margin-top:16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tan-deep)">Logos oficiais entram na versão final</div>
   </div>
 </section>
 
@@ -543,14 +548,36 @@ setTimeout(function(){
       s._wp = $$('[data-wipe]', s);
       s._sp = $$('[data-split]', s).filter(function(el){ return !el.closest('.hero'); });
       s._sp.forEach(function(el){ el._w = $$('.rv > i', el); });
+      s._ln = $$('[data-line]', s).map(function(svg){
+        var p=svg.querySelector('path'), L=0;
+        try{ L=p.getTotalLength(); }catch(e){}
+        p.style.strokeDasharray=L;
+        return {svg:svg, p:p, L:L};
+      });
       s._st = null;
     });
 
-    /* progresso 0→1 conforme o topo do elemento sobe de 92% para 55% da viewport */
+    /* progresso 0→1 conforme o topo do elemento sobe de 92% para 55% da viewport.
+       Itens com data-st (cascata: grade de marcas, fotos) atrasam só o INÍCIO da
+       revelação (cada item começa um pouco depois do anterior) mas todos terminam
+       no mesmo ponto (50% da viewport) — assim a fileira sempre fecha em opacidade
+       total enquanto ainda está confortavelmente visível, em vez de exigir rolar
+       quase até o card sumir por cima. */
     function prog(el){
       var t = el.getBoundingClientRect().top / innerHeight;
+      var st = el.getAttribute('data-st');
+      if(st!==null){
+        var end0 = 0.50, top0 = 0.94 - parseFloat(st) * 0.05;
+        return clamp((top0 - t) / (top0 - end0), 0, 1);
+      }
       return clamp((0.92 - t) / (0.92 - 0.55), 0, 1);
     }
+    /* janela própria, mais lenta, p/ as linhas de régua — desenham devagar em vez de "estalar" */
+    function progLn(el){
+      var t = el.getBoundingClientRect().top / innerHeight;
+      return clamp((0.98 - t) / (0.98 - 0.42), 0, 1);
+    }
+    var easeSoft=function(t){ return t*t*(3-2*t); }; // smoothstep — mais suave que a cúbica nas pontas
     function setRi(el,p){ el.style.opacity=String(p); el.style.transform='translateY('+lerp(22,0,easeOut(p)).toFixed(1)+'px)'; }
     function setWp(el,p){ el.style.clipPath='inset(0 0 '+((1-easeOut(p))*100).toFixed(2)+'% 0)'; }
     function setSp(el,p){
@@ -560,11 +587,13 @@ setTimeout(function(){
         w[i].style.transform='translateY('+(120*(1-easeOut(wp))).toFixed(1)+'%)';
       }
     }
+    function setLn(o,p){ o.p.style.strokeDashoffset=String(o.L*(1-easeSoft(p))); }
     function termBlock(s,v){            // estado terminal barato (0 = escondido, 1 = revelado)
       if(s._st===v) return; s._st=v;
       s._ri.forEach(function(el){ setRi(el,v); });
       s._wp.forEach(function(el){ setWp(el,v); });
       s._sp.forEach(function(el){ setSp(el,v); });
+      s._ln.forEach(function(o){ setLn(o,v); });
     }
     window._reveals=function(){
       revBlocks.forEach(function(s){
@@ -575,6 +604,7 @@ setTimeout(function(){
         s._ri.forEach(function(el){ setRi(el,prog(el)); });
         s._wp.forEach(function(el){ setWp(el,prog(el)); });
         s._sp.forEach(function(el){ setSp(el,prog(el)); });
+        s._ln.forEach(function(o){ setLn(o,progLn(o.svg)); });
       });
     };
   }
